@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/newPageButton"
+        android:layout_width="128dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <ImageButton
+        android:id="@+id/savePageButton"
+        android:layout_width="128dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="124dp"
+        android:src="@android:drawable/ic_menu_save"
+        app:layout_constraintStart_toEndOf="@+id/newPageButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bookmarkButton"
+        android:layout_width="128dp"
+        android:layout_height="45dp"
+        android:src="@android:drawable/btn_star_big_off"
+        app:layout_constraintStart_toEndOf="@+id/savePageButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
