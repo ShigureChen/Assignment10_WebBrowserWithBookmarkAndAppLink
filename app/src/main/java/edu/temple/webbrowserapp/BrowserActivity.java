@@ -257,11 +257,13 @@ public class BrowserActivity extends AppCompatActivity implements
         if(Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null)
         {
             String url = appLinkData.toString();
+            openNewTab(url);
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.title_bar, menu);
         return true;
@@ -271,21 +273,26 @@ public class BrowserActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.share:
                 Intent webIntent = new Intent(Intent.ACTION_VIEW);
-                if(pagerFragment.getCurrentUrl() == null || pagerFragment.size() == 0)
-                {
-                    Toast toast = Toast.makeText(BrowserActivity.this, "Unable to share empty page", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-                else
+                if(pagerFragment.size() != 0)
                 {
                     String url = pagerFragment.getCurrentUrl();
                     webIntent.setData(Uri.parse(url));
                     Intent chooser = Intent.createChooser(webIntent, "Open With");
                     startActivity(chooser);
                 }
+                else
+                {
+                    Toast toast = Toast.makeText(BrowserActivity.this, "Unable to share empty page", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             default:
                 return super.onOptionsItemSelected(item);
-
         }
+    }
+
+    private void openNewTab(String url)
+    {
+        pages.add(new PageViewerFragment());
+        notifyWebsitesChanged();
     }
 }
