@@ -270,7 +270,23 @@ public class BrowserActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.share:
+                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                if(pagerFragment.viewPager. == null)
+                {
 
+                }
+                if(pagerFragment.getCurrentUrl() == null)
+                {
+                    Toast toast = Toast.makeText(BrowserActivity.this, "Unable to share empty page", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else
+                {
+                    String url = pagerFragment.getCurrentUrl();
+                    webIntent.setData(Uri.parse(url));
+                    Intent chooser = Intent.createChooser(webIntent, "Open With");
+                    startActivity(chooser);
+                }
             default:
                 return super.onOptionsItemSelected(item);
 
