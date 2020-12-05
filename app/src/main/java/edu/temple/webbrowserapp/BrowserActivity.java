@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,6 +39,8 @@ public class BrowserActivity extends AppCompatActivity implements
     BrowserControlFragment browserControlFragment;
     PageListFragment pageListFragment;
     PagerFragment pagerFragment;
+    PageViewerFragment pageViewerFragment;
+    Fragment tmpFragment;
 
     ArrayList<PageViewerFragment> pages;
     ArrayList<String> bookmarks = new ArrayList<String>();
@@ -62,7 +66,6 @@ public class BrowserActivity extends AppCompatActivity implements
 
         listMode = findViewById(R.id.page_list) != null;
 
-        Fragment tmpFragment;
 
         // If PageControlFragment already added (activity restarted) then hold reference
         // otherwise add new fragment. Only one instance of fragment is ever present
@@ -113,7 +116,7 @@ public class BrowserActivity extends AppCompatActivity implements
         }
 
         // ATTENTION: This was auto-generated to handle app links.
-        handleIntent(getIntent());
+        handleIntent();
     }
 
     private void clearIdentifiers() {
@@ -247,18 +250,19 @@ public class BrowserActivity extends AppCompatActivity implements
     protected void onNewIntent(Intent intent)
     {
         super.onNewIntent(intent);
-        handleIntent(intent);
+        handleIntent();
     }
 
-    private void handleIntent(Intent intent)
+    private void handleIntent()
     {
-        String appLinkAction = intent.getAction();
-        Uri appLinkData = intent.getData();
+        String url = new String();
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
         if(Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null)
         {
-            String url = appLinkData.toString();
-            pages.add(new PageViewerFragment());
-
+            url = appLinkData.toString();
+            pages.add(PageViewerFragment.newInstance(url));
         }
     }
 
