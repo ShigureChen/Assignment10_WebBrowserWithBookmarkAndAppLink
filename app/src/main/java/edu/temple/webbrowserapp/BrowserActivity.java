@@ -257,7 +257,8 @@ public class BrowserActivity extends AppCompatActivity implements
         if(Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null)
         {
             String url = appLinkData.toString();
-            openNewTab(url);
+            pages.add(new PageViewerFragment());
+
         }
     }
 
@@ -272,13 +273,13 @@ public class BrowserActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.share:
-                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                Intent webIntent = new Intent(Intent.ACTION_SEND);
                 if(pagerFragment.size() != 0)
                 {
                     String url = pagerFragment.getCurrentUrl();
-                    webIntent.setData(Uri.parse(url));
-                    Intent chooser = Intent.createChooser(webIntent, "Open With");
-                    startActivity(chooser);
+                    webIntent.putExtra(Intent.EXTRA_TEXT, url);
+                    webIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(webIntent, "Share This Page With"));
                 }
                 else
                 {
@@ -288,11 +289,5 @@ public class BrowserActivity extends AppCompatActivity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void openNewTab(String url)
-    {
-        pages.add(new PageViewerFragment());
-        notifyWebsitesChanged();
     }
 }

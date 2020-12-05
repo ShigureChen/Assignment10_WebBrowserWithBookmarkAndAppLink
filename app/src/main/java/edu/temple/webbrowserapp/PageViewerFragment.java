@@ -21,8 +21,8 @@ public class PageViewerFragment extends Fragment implements Serializable{
     private static final String URL_KEY = "url";
 
     transient WebView webView;
-    private PageViewerInterface browserActivity;
-    private String url;
+    transient PageViewerInterface browserActivity;
+    transient String url;
 
 
     public static PageViewerFragment newInstance(String url) {
@@ -96,9 +96,6 @@ public class PageViewerFragment extends Fragment implements Serializable{
                 browserActivity.updateUrl("");
             }
         }
-
-
-
         return view;
     }
 
