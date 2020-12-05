@@ -271,11 +271,7 @@ public class BrowserActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.share:
                 Intent webIntent = new Intent(Intent.ACTION_VIEW);
-                if(pagerFragment.viewPager. == null)
-                {
-
-                }
-                if(pagerFragment.getCurrentUrl() == null)
+                if(pagerFragment.getCurrentUrl() == null || pagerFragment.size() == 0)
                 {
                     Toast toast = Toast.makeText(BrowserActivity.this, "Unable to share empty page", Toast.LENGTH_LONG);
                     toast.show();
